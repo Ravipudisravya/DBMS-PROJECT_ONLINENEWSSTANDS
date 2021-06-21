@@ -1,0 +1,968 @@
+SQL> create table user_(
+  2  user_id number(10),
+  3  user_name varchar2(20),
+  4  user_email varchar2(10),
+  5  user_password varchar2(10),
+  6  user_add varchar2(20));
+
+Table created.
+
+SQL> create table news(
+  2  news_id number (10),
+  3  news_type varchar2(10),
+  4  no_of_articles number(10),
+  5  short_desc varchar(30));
+create table news(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create table news-(
+  2  news_id number (10),
+  3  news_type varchar2(10),
+  4  no_of_articles number(10),
+  5  short_desc varchar(30));
+create table news-(
+                 *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> create table news_(
+  2  news_id number (10),
+  3  news_type varchar2(10),
+  4  no_of_articles number(10),
+  5  short_desc varchar(30));
+
+Table created.
+
+SQL> create table _news(
+  2  news_id number(10),
+  3  news_type varchar2(20),
+  4  title varchar2(20),
+  5  short_descr varchar2(30),
+  6  date number(10),
+  7  publishername varchar2(20));
+create table _news(
+             *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> create table news1(
+  2  news_id number(10),
+  3  news_type varchar2(20),
+  4  title varchar2(20),
+  5  short_descr varchar2(30),
+  6  date number(10),
+  7  publishername varchar2(20));
+date number(10),
+*
+ERROR at line 6:
+ORA-00904: : invalid identifier 
+
+
+SQL> create table news1(
+  2  news_id number(10),
+  3  news_type varchar2(20),
+  4  title varchar2(20),
+  5  short_descr varchar2(30),
+  6  read_date date,
+  7  publishername varchar2(20));
+
+Table created.
+
+SQL> create table advertisement1(
+  2  adv_id number(10),
+  3  adv_type varchar2(20),
+  4  adv_title varchar2(10),
+  5  adv_date date);
+
+Table created.
+
+SQL> create table publisher(
+  2  pub_id number(10),
+  3  pub_name varchar2(20),
+  4  pub_email varchar(20),
+  5  pub_date date);
+
+Table created.
+
+SQL> create table read(
+  2  user_id number(10),
+  3  news_id number(10),
+  4  adv_id number(10));
+
+Table created.
+
+SQL> create table published(
+  2  news_id number(10),
+  3  pub_id number(10));
+
+Table created.
+
+SQL> alter table user add primary key(user_id);
+alter table user add primary key(user_id)
+            *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> alter table user_ add primary key(user_id);
+
+Table altered.
+
+SQL> alter table news1 add primary key(news_id);
+
+Table altered.
+
+SQL> alter table advertisements1 add primary key(adv_id);
+alter table advertisements1 add primary key(adv_id)
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> alter table advertisement1 add primary key(adv_id);
+
+Table altered.
+
+SQL> alter table publisher add primary key(pub_id);
+
+Table altered.
+
+SQL> alter table user_ add not null(user_id);
+alter table user_ add not null(user_id)
+                      *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> desc user_;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USER_ID                                   NOT NULL NUMBER(10)
+ USER_NAME                                          VARCHAR2(20)
+ USER_EMAIL                                         VARCHAR2(10)
+ USER_PASSWORD                                      VARCHAR2(10)
+ USER_ADD                                           VARCHAR2(20)
+
+SQL> desc advertisement1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ADV_ID                                    NOT NULL NUMBER(10)
+ ADV_TYPE                                           VARCHAR2(20)
+ ADV_TITLE                                          VARCHAR2(10)
+ ADV_DATE                                           DATE
+
+SQL> desc news1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NEWS_ID                                   NOT NULL NUMBER(10)
+ NEWS_TYPE                                          VARCHAR2(20)
+ TITLE                                              VARCHAR2(20)
+ SHORT_DESCR                                        VARCHAR2(30)
+ READ_DATE                                          DATE
+ PUBLISHERNAME                                      VARCHAR2(20)
+
+SQL> desc publisher;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PUB_ID                                    NOT NULL NUMBER(10)
+ PUB_NAME                                           VARCHAR2(20)
+ PUB_EMAIL                                          VARCHAR2(20)
+ PUB_DATE                                           DATE
+
+SQL> desc read;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USER_ID                                            NUMBER(10)
+ NEWS_ID                                            NUMBER(10)
+ ADV_ID                                             NUMBER(10)
+
+SQL> desc published;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NEWS_ID                                            NUMBER(10)
+ PUB_ID                                             NUMBER(10)
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 1111
+Enter value for user_name: sravya
+Enter value for user_email: sravya@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: vinay nagar,guntur
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(1111,'sravya','sravya@gmail.com','****','vinay nagar,guntur')
+insert into user_ values(1111,'sravya','sravya@gmail.com','****','vinay nagar,guntur')
+                                       *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."USER_"."USER_EMAIL" (actual: 
+16, maximum: 10) 
+
+
+SQL> alter table user_ modify user_email number(20);
+
+Table altered.
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 1111
+Enter value for user_name: sravya
+Enter value for user_email: sravya@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: vinay nagar,guntur
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(1111,'sravya','sravya@gmail.com','****','vinay nagar,guntur')
+insert into user_ values(1111,'sravya','sravya@gmail.com','****','vinay nagar,guntur')
+                                       *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> alter table user_ modify user_email varchar2(20);
+
+Table altered.
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 1111
+Enter value for user_name: sravya
+Enter value for user_email: sravya@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: vinay nagar,guntur
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(1111,'sravya','sravya@gmail.com','****','vinay nagar,guntur')
+
+1 row created.
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: monica
+Enter value for user_name: 
+Enter value for user_email: 
+Enter value for user_password: 
+Enter value for user_add: 
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(monica,'','','','')
+insert into user_ values(monica,'','','','')
+                         *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 2222
+Enter value for user_name: monica
+Enter value for user_email: monica@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: ff2,lawyerpet,ongole
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(2222,'monica','monica@gmail.com','****','ff2,lawyerpet,ongole')
+
+1 row created.
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: saila
+Enter value for user_name: 
+Enter value for user_email: 
+Enter value for user_password: 
+Enter value for user_add: 
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(saila,'','','','')
+insert into user_ values(saila,'','','','')
+                         *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 3333
+Enter value for user_name: saila
+Enter value for user_email: saila@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: sanath nagar,bb colony
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(3333,'saila','saila@gmail.com','****','sanath nagar,bb colony')
+insert into user_ values(3333,'saila','saila@gmail.com','****','sanath nagar,bb colony')
+                                                               *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."USER_"."USER_ADD" (actual: 22, 
+maximum: 20) 
+
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 3333
+Enter value for user_name: saila
+Enter value for user_email: saila@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: santh nagar
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(3333,'saila','saila@gmail.com','****','santh nagar')
+
+1 row created.
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: bobby
+Enter value for user_name: 
+Enter value for user_email: 
+Enter value for user_password: 
+Enter value for user_add: 
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(bobby,'','','','')
+insert into user_ values(bobby,'','','','')
+                         *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 4444
+Enter value for user_name: bobby
+Enter value for user_email: bobby@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: vip road,guntur
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(4444,'bobby','bobby@gmail.com','****','vip road,guntur')
+
+1 row created.
+
+SQL> insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add');
+Enter value for user_id: 5555
+Enter value for user_name: tinku
+Enter value for user_email: tinku@gmail.com
+Enter value for user_password: ****
+Enter value for user_add: hyderbad,vce college
+old   1: insert into user_ values(&user_id,'&user_name','&user_email','&user_password','&user_add')
+new   1: insert into user_ values(5555,'tinku','tinku@gmail.com','****','hyderbad,vce college')
+
+1 row created.
+
+SQL> desc news1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NEWS_ID                                   NOT NULL NUMBER(10)
+ NEWS_TYPE                                          VARCHAR2(20)
+ TITLE                                              VARCHAR2(20)
+ SHORT_DESCR                                        VARCHAR2(30)
+ READ_DATE                                          DATE
+ PUBLISHERNAME                                      VARCHAR2(20)
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_desc','&read_date','&publishername');
+Enter value for news_id: 101
+Enter value for news_type: sports
+Enter value for title: ipl cancelled
+Enter value for short_desc: ipl cancelled due to increase in covid cases
+Enter value for read_date: 23-05-2021
+Enter value for publishername: sreenath
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_desc','&read_date','&publishername')
+new   1: insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','23-05-2021','sreenath')
+insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','23-05-2021','sreenath')
+                                                      *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."NEWS1"."SHORT_DESCR" (actual: 
+44, maximum: 30) 
+
+
+SQL> alter table news1 modify short_descr varchar2(50);
+
+Table altered.
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 101
+Enter value for news_type: sports
+Enter value for title: ipl cancelled
+Enter value for short_descr: ipl cancelled due to increase in covid cases
+Enter value for read_date: 23-05-2021
+Enter value for publishername: sreenath
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','23-05-2021','sreenath')
+insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','23-05-2021','sreenath')
+                                                                                                     *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 101
+Enter value for news_type: sports
+Enter value for title: ipl cancelled
+Enter value for short_descr: ipl cancelled due to increase in covid cases
+Enter value for read_date: 03-04-2020
+Enter value for publishername: sreenath
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','03-04-2020','sreenath')
+insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','03-04-2020','sreenath')
+                                                                                                     *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 101
+Enter value for news_type: sports
+Enter value for title: ipl cancelled
+Enter value for short_descr: ipl cancelled due to increase in covid cases
+Enter value for read_date: 2020-04-03
+Enter value for publishername: sreenath
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','2020-04-03','sreenath')
+insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','2020-04-03','sreenath')
+                                                                                                     *
+ERROR at line 1:
+ORA-01861: literal does not match format string 
+
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 101
+Enter value for news_type: sports
+Enter value for title: ipl cancelled
+Enter value for short_descr: ipl cancelled due to increase in covid cases
+Enter value for read_date: 03-may-2020
+Enter value for publishername: sreenath
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(101,'sports','ipl cancelled','ipl cancelled due to increase in covid cases','03-may-2020','sreenath')
+
+1 row created.
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 102
+Enter value for news_type: education
+Enter value for title: covid cases students
+Enter value for short_descr: students got infected to covid during lab exams
+Enter value for read_date: 07-jun-2020
+Enter value for publishername: vinay
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(102,'education','covid cases students','students got infected to covid during lab exams','07-jun-2020','vinay')
+
+1 row created.
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 103
+Enter value for news_type: politics
+Enter value for title: elections continued
+Enter value for short_descr: election are running even covid cases are at high rate. no action taken from govt
+Enter value for read_date: 05-jul-2020
+Enter value for publishername: vaishu roy
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(103,'politics','elections continued','election are running even covid cases are at high rate. no action taken from govt','05-jul-2020','vaishu roy')
+insert into news1 values(103,'politics','elections continued','election are running even covid cases are at high rate. no action taken from govt','05-jul-2020','vaishu roy')
+                                                              *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."NEWS1"."SHORT_DESCR" (actual: 
+81, maximum: 50) 
+
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: politics
+Enter value for news_type: elections continued
+Enter value for title: election are running even covid cases are at high rate.
+Enter value for short_descr: 05-jul-2020
+Enter value for read_date: vaishu roy
+Enter value for publishername: 
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(politics,'elections continued','election are running even covid cases are at high rate.','05-jul-2020','vaishu roy','')
+insert into news1 values(politics,'elections continued','election are running even covid cases are at high rate.','05-jul-2020','vaishu roy','')
+                         *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 103
+Enter value for news_type: politics
+Enter value for title: elections continued
+Enter value for short_descr: election are running even covid cases are at high rate
+Enter value for read_date: 05-jul-2020
+Enter value for publishername: vaishu roy
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(103,'politics','elections continued','election are running even covid cases are at high rate','05-jul-2020','vaishu roy')
+insert into news1 values(103,'politics','elections continued','election are running even covid cases are at high rate','05-jul-2020','vaishu roy')
+                                                              *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."NEWS1"."SHORT_DESCR" (actual: 
+54, maximum: 50) 
+
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 103
+Enter value for news_type: politics
+Enter value for title: elections continued
+Enter value for short_descr: election are ruuning in ap
+Enter value for read_date: 05-jul-2020
+Enter value for publishername: vaishu roy
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(103,'politics','elections continued','election are ruuning in ap','05-jul-2020','vaishu roy')
+
+1 row created.
+
+SQL> desc advertisement1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ADV_ID                                    NOT NULL NUMBER(10)
+ ADV_TYPE                                           VARCHAR2(20)
+ ADV_TITLE                                          VARCHAR2(10)
+ ADV_DATE                                           DATE
+
+SQL> insert into advertisement1(&adv_id,'&adv_type','&adv_title','adv_date');
+Enter value for adv_id: 111
+Enter value for adv_type: jobsearch
+Enter value for adv_title: job vacancy in kfc
+old   1: insert into advertisement1(&adv_id,'&adv_type','&adv_title','adv_date')
+new   1: insert into advertisement1(111,'jobsearch','job vacancy in kfc','adv_date')
+insert into advertisement1(111,'jobsearch','job vacancy in kfc','adv_date')
+                           *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into advertisement1(&adv_id,'&adv_type','&adv_title','adv_date');
+Enter value for adv_id: 111
+Enter value for adv_type: jobsearch
+Enter value for adv_title: job vacancy in kfc
+old   1: insert into advertisement1(&adv_id,'&adv_type','&adv_title','adv_date')
+new   1: insert into advertisement1(111,'jobsearch','job vacancy in kfc','adv_date')
+insert into advertisement1(111,'jobsearch','job vacancy in kfc','adv_date')
+                           *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into advertisement1(&adv_id,'&adv_type','&adv_title','adv_date');
+Enter value for adv_id: 2304
+Enter value for adv_type: jobsearch
+Enter value for adv_title: job vacancy in kfc
+old   1: insert into advertisement1(&adv_id,'&adv_type','&adv_title','adv_date')
+new   1: insert into advertisement1(2304,'jobsearch','job vacancy in kfc','adv_date')
+insert into advertisement1(2304,'jobsearch','job vacancy in kfc','adv_date')
+                           *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','adv_date');
+Enter value for adv_id: 2304
+Enter value for adv_type: jobsearch
+Enter value for adv_title: job vacancy in kfc
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','adv_date')
+new   1: insert into advertisement1 values(2304,'jobsearch','job vacancy in kfc','adv_date')
+insert into advertisement1 values(2304,'jobsearch','job vacancy in kfc','adv_date')
+                                                   *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."ADVERTISEMENT1"."ADV_TITLE" 
+(actual: 18, maximum: 10) 
+
+
+SQL> alter tabel advertisement1 modify adv_title varchar2(20);
+alter tabel advertisement1 modify adv_title varchar2(20)
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> alter table advertisement1 modify adv_title varchar2(20);
+
+Table altered.
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','adv_date');
+Enter value for adv_id: 2304
+Enter value for adv_type: jobsearch
+Enter value for adv_title: job vacancy in kfc
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','adv_date')
+new   1: insert into advertisement1 values(2304,'jobsearch','job vacancy in kfc','adv_date')
+insert into advertisement1 values(2304,'jobsearch','job vacancy in kfc','adv_date')
+                                                                        *
+ERROR at line 1:
+ORA-01858: a non-numeric character was found where a numeric was expected 
+
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date');
+Enter value for adv_id: 2304
+Enter value for adv_type: jobsearch
+Enter value for adv_title: job vacancy in kfc
+Enter value for adv_date: 23-jan-2020
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date')
+new   1: insert into advertisement1 values(2304,'jobsearch','job vacancy in kfc','23-jan-2020')
+
+1 row created.
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date');
+Enter value for adv_id: 2036
+Enter value for adv_type: rent
+Enter value for adv_title: for rent viproad,ongole
+Enter value for adv_date: 05
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date')
+new   1: insert into advertisement1 values(2036,'rent','for rent viproad,ongole','05')
+insert into advertisement1 values(2036,'rent','for rent viproad,ongole','05')
+                                              *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."ADVERTISEMENT1"."ADV_TITLE" 
+(actual: 23, maximum: 20) 
+
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date');
+Enter value for adv_id: 2036
+Enter value for adv_type: rent
+Enter value for adv_title: rental
+Enter value for adv_date: 05-jan-2020
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date')
+new   1: insert into advertisement1 values(2036,'rent','rental','05-jan-2020')
+
+1 row created.
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date');
+Enter value for adv_id: 2039
+Enter value for adv_type: plot sale
+Enter value for adv_title: rohini plots
+Enter value for adv_date: 25-feb-2020
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date')
+new   1: insert into advertisement1 values(2039,'plot sale','rohini plots','25-feb-2020')
+
+1 row created.
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date');
+Enter value for adv_id: 3045
+Enter value for adv_type: marriage
+Enter value for adv_title: xy matrimony
+Enter value for adv_date: 03-mar-2020
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date')
+new   1: insert into advertisement1 values(3045,'marriage','xy matrimony','03-mar-2020')
+
+1 row created.
+
+SQL> insert into publisher values(
+  2  
+SQL> desc publisher;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PUB_ID                                    NOT NULL NUMBER(10)
+ PUB_NAME                                           VARCHAR2(20)
+ PUB_EMAIL                                          VARCHAR2(20)
+ PUB_DATE                                           DATE
+
+SQL> select * from news1;
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+       101 sports               ipl cancelled                                   
+ipl cancelled due to increase in covid cases       03-MAY-20                    
+sreenath                                                                        
+                                                                                
+       102 education            covid cases students                            
+students got infected to covid during lab exams    07-JUN-20                    
+vinay                                                                           
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+                                                                                
+       103 politics             elections continued                             
+election are ruuning in ap                         05-JUL-20                    
+vaishu roy                                                                      
+                                                                                
+
+SQL> insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date');
+Enter value for pub_id: 201
+Enter value for pub_name: sreenath
+Enter value for pub_email: sreenath@gmail.com
+Enter value for pub_date: 02-may-2020
+old   1: insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date')
+new   1: insert into publisher values(201,'sreenath','sreenath@gmail.com','02-may-2020')
+
+1 row created.
+
+SQL> insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date');
+Enter value for pub_id: 202
+Enter value for pub_name: vinay
+Enter value for pub_email: vinay@gmail.com
+Enter value for pub_date: 06-jun-2020
+old   1: insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date')
+new   1: insert into publisher values(202,'vinay','vinay@gmail.com','06-jun-2020')
+
+1 row created.
+
+SQL> insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date');
+Enter value for pub_id: 203
+Enter value for pub_name: vaishu roy
+Enter value for pub_email: vaishu@gmail.com
+Enter value for pub_date: 03-jul-2020
+old   1: insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date')
+new   1: insert into publisher values(203,'vaishu roy','vaishu@gmail.com','03-jul-2020')
+
+1 row created.
+
+SQL> select * from publisher;
+
+    PUB_ID PUB_NAME             PUB_EMAIL            PUB_DATE                   
+---------- -------------------- -------------------- ---------                  
+       201 sreenath             sreenath@gmail.com   02-MAY-20                  
+       202 vinay                vinay@gmail.com      06-JUN-20                  
+       203 vaishu roy           vaishu@gmail.com     03-JUL-20                  
+
+SQL> select * from advertisement1;
+
+    ADV_ID ADV_TYPE             ADV_TITLE            ADV_DATE                   
+---------- -------------------- -------------------- ---------                  
+      2304 jobsearch            job vacancy in kfc   23-JAN-20                  
+      2036 rent                 rental               05-JAN-20                  
+      2039 plot sale            rohini plots         25-FEB-20                  
+      3045 marriage             xy matrimony         03-MAR-20                  
+
+SQL> select * from user_;
+
+   USER_ID USER_NAME            USER_EMAIL           USER_PASSW                 
+---------- -------------------- -------------------- ----------                 
+USER_ADD                                                                        
+--------------------                                                            
+      1111 sravya               sravya@gmail.com     ****                       
+vinay nagar,guntur                                                              
+                                                                                
+      2222 monica               monica@gmail.com     ****                       
+ff2,lawyerpet,ongole                                                            
+                                                                                
+      3333 saila                saila@gmail.com      ****                       
+santh nagar                                                                     
+                                                                                
+
+   USER_ID USER_NAME            USER_EMAIL           USER_PASSW                 
+---------- -------------------- -------------------- ----------                 
+USER_ADD                                                                        
+--------------------                                                            
+      4444 bobby                bobby@gmail.com      ****                       
+vip road,guntur                                                                 
+                                                                                
+      5555 tinku                tinku@gmail.com      ****                       
+hyderbad,vce college                                                            
+                                                                                
+
+SQL> insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date');
+Enter value for adv_id: 3033
+Enter value for adv_type: exhibition
+Enter value for adv_title: near jo park
+Enter value for adv_date: 04-jun-2020
+old   1: insert into advertisement1 values(&adv_id,'&adv_type','&adv_title','&adv_date')
+new   1: insert into advertisement1 values(3033,'exhibition','near jo park','04-jun-2020')
+
+1 row created.
+
+SQL> select * from news1;
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+       101 sports               ipl cancelled                                   
+ipl cancelled due to increase in covid cases       03-MAY-20                    
+sreenath                                                                        
+                                                                                
+       102 education            covid cases students                            
+students got infected to covid during lab exams    07-JUN-20                    
+vinay                                                                           
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+                                                                                
+       103 politics             elections continued                             
+election are ruuning in ap                         05-JUL-20                    
+vaishu roy                                                                      
+                                                                                
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 110
+Enter value for news_type: bollywood
+Enter value for title: alia tested +ve
+Enter value for short_descr: alia tested +ve for covid.she is in quarantine
+Enter value for read_date: 07-aug-2020
+Enter value for publishername: tilok
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(110,'bollywood','alia tested +ve','alia tested +ve for covid.she is in quarantine','07-aug-2020','tilok')
+
+1 row created.
+
+SQL> insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername');
+Enter value for news_id: 124
+Enter value for news_type: tollywood
+Enter value for title: cinemas postponed
+Enter value for short_descr: nani movie got postponed due shut down of theatres
+Enter value for read_date: 21-aug-2020
+Enter value for publishername: gnatu bose
+old   1: insert into news1 values(&news_id,'&news_type','&title','&short_descr','&read_date','&publishername')
+new   1: insert into news1 values(124,'tollywood','cinemas postponed','nani movie got postponed due shut down of theatres','21-aug-2020','gnatu bose')
+
+1 row created.
+
+SQL> select * from news1;
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+       101 sports               ipl cancelled                                   
+ipl cancelled due to increase in covid cases       03-MAY-20                    
+sreenath                                                                        
+                                                                                
+       102 education            covid cases students                            
+students got infected to covid during lab exams    07-JUN-20                    
+vinay                                                                           
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+                                                                                
+       103 politics             elections continued                             
+election are ruuning in ap                         05-JUL-20                    
+vaishu roy                                                                      
+                                                                                
+       110 bollywood            alia tested +ve                                 
+alia tested +ve for covid.she is in quarantine     07-AUG-20                    
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+tilok                                                                           
+                                                                                
+       124 tollywood            cinemas postponed                               
+nani movie got postponed due shut down of theatres 21-AUG-20                    
+gnatu bose                                                                      
+                                                                                
+
+SQL> insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date');
+Enter value for pub_id: 210
+Enter value for pub_name: tilok
+Enter value for pub_email: tilok@gmail.com
+Enter value for pub_date: 05-aug-2020
+old   1: insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date')
+new   1: insert into publisher values(210,'tilok','tilok@gmail.com','05-aug-2020')
+
+1 row created.
+
+SQL> insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date');
+Enter value for pub_id: 224
+Enter value for pub_name: gnatu bose
+Enter value for pub_email: gnatu@gmail.com
+Enter value for pub_date: 20-aug-2020
+old   1: insert into publisher values(&pub_id,'&pub_name','&pub_email','&pub_date')
+new   1: insert into publisher values(224,'gnatu bose','gnatu@gmail.com','20-aug-2020')
+
+1 row created.
+
+SQL> select * from publisher;
+
+    PUB_ID PUB_NAME             PUB_EMAIL            PUB_DATE                   
+---------- -------------------- -------------------- ---------                  
+       201 sreenath             sreenath@gmail.com   02-MAY-20                  
+       202 vinay                vinay@gmail.com      06-JUN-20                  
+       203 vaishu roy           vaishu@gmail.com     03-JUL-20                  
+       210 tilok                tilok@gmail.com      05-AUG-20                  
+       224 gnatu bose           gnatu@gmail.com      20-AUG-20                  
+
+SQL> select * from user_;
+
+   USER_ID USER_NAME            USER_EMAIL           USER_PASSW                 
+---------- -------------------- -------------------- ----------                 
+USER_ADD                                                                        
+--------------------                                                            
+      1111 sravya               sravya@gmail.com     ****                       
+vinay nagar,guntur                                                              
+                                                                                
+      2222 monica               monica@gmail.com     ****                       
+ff2,lawyerpet,ongole                                                            
+                                                                                
+      3333 saila                saila@gmail.com      ****                       
+santh nagar                                                                     
+                                                                                
+
+   USER_ID USER_NAME            USER_EMAIL           USER_PASSW                 
+---------- -------------------- -------------------- ----------                 
+USER_ADD                                                                        
+--------------------                                                            
+      4444 bobby                bobby@gmail.com      ****                       
+vip road,guntur                                                                 
+                                                                                
+      5555 tinku                tinku@gmail.com      ****                       
+hyderbad,vce college                                                            
+                                                                                
+
+SQL> select * from news1;
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+       101 sports               ipl cancelled                                   
+ipl cancelled due to increase in covid cases       03-MAY-20                    
+sreenath                                                                        
+                                                                                
+       102 education            covid cases students                            
+students got infected to covid during lab exams    07-JUN-20                    
+vinay                                                                           
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+                                                                                
+       103 politics             elections continued                             
+election are ruuning in ap                         05-JUL-20                    
+vaishu roy                                                                      
+                                                                                
+       110 bollywood            alia tested +ve                                 
+alia tested +ve for covid.she is in quarantine     07-AUG-20                    
+
+   NEWS_ID NEWS_TYPE            TITLE                                           
+---------- -------------------- --------------------                            
+SHORT_DESCR                                        READ_DATE                    
+-------------------------------------------------- ---------                    
+PUBLISHERNAME                                                                   
+--------------------                                                            
+tilok                                                                           
+                                                                                
+       124 tollywood            cinemas postponed                               
+nani movie got postponed due shut down of theatres 21-AUG-20                    
+gnatu bose                                                                      
+                                                                                
+
+SQL> select * from advertisement1;
+
+    ADV_ID ADV_TYPE             ADV_TITLE            ADV_DATE                   
+---------- -------------------- -------------------- ---------                  
+      2304 jobsearch            job vacancy in kfc   23-JAN-20                  
+      2036 rent                 rental               05-JAN-20                  
+      2039 plot sale            rohini plots         25-FEB-20                  
+      3045 marriage             xy matrimony         03-MAR-20                  
+      3033 exhibition           near jo park         04-JUN-20                  
+
+SQL> select * from publisher;
+
+    PUB_ID PUB_NAME             PUB_EMAIL            PUB_DATE                   
+---------- -------------------- -------------------- ---------                  
+       201 sreenath             sreenath@gmail.com   02-MAY-20                  
+       202 vinay                vinay@gmail.com      06-JUN-20                  
+       203 vaishu roy           vaishu@gmail.com     03-JUL-20                  
+       210 tilok                tilok@gmail.com      05-AUG-20                  
+       224 gnatu bose           gnatu@gmail.com      20-AUG-20                  
+
+SQL> spool off
